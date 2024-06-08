@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mio.afterschoolservice.mapper.AnswerMapper">
+<!--    添加回复-->
+    <insert id="addAnswer">
+        insert into answer (user_id,username,p_id,context,create_time,update_time)
+            values(#{userId},#{username},#{pId},#{context},now(),now());
+    </insert>
+<!--    删除回复-->
+    <delete id="deleteAnswer">
+        delete from answer where id=#{id};
+    </delete>
+<!--    点赞-->
+    <update id="thumbsUp">
+        update answer set good=good+1 where id=#{id};
+    </update>
+<!--    取消点赞-->
+    <update id="cancel">
+        update answer set good=good-1 where id=#{id};
+    </update>
+<!--    获取回复列表-->
+    <select id="getList" resultType="com.mio.afterschoolservice.pojo.Answer">
+        select * from answer where p_id=#{pid}
+    </select>
+
+</mapper>

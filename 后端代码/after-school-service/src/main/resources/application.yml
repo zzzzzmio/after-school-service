@@ -1,0 +1,19 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
+  application:
+    name: after-school-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/after_school_service?allowMultiQueries=true
+    password: 20021217
+    username: root
+  data:
+    redis:
+      port: 6379
+      host: localhost
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true

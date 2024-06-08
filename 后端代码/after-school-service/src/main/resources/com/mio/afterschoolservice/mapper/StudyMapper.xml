@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mio.afterschoolservice.mapper.StudyMapper">
+    <select id="find" resultType="com.mio.afterschoolservice.pojo.Study">
+        select * from study where stu_id=#{stuId} and year=#{year} and month=#{month} and date=#{date};
+    </select>
+    <insert id="addStudy">
+        insert into study (stu_id,year,month,date,time,img)
+            values(#{stuId},#{year},#{month},#{date},now(),#{img});
+    </insert>
+    <select id="getList" resultType="com.mio.afterschoolservice.pojo.Study">
+        select * from study where stu_id=#{stuId} order by time limit 7;
+    </select>
+
+</mapper>

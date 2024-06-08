@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mio.afterschoolservice.mapper.NewsMapper">
+<!--    根据标题查找新闻公告-->
+    <select id="findByTitle" resultType="com.mio.afterschoolservice.pojo.News">
+        select * from news where title=#{title};
+    </select>
+<!--    添加新闻公告-->
+    <insert id="addNews">
+        insert into news (title,context,cover_img,user_id,create_time,update_time)
+            values(#{title},#{context},#{coverImg},#{userId},now(),now());
+    </insert>
+<!--    删除新闻公告-->
+    <delete id="deleteNews">
+        delete from news where id=#{id};
+    </delete>
+<!--    根据题目查找除自己以外的新闻-->
+    <select id="findOther" resultType="com.mio.afterschoolservice.pojo.News">
+        select * from news where title=#{title} and id!=#{id};
+    </select>
+<!--    修改新闻公告-->
+    <update id="updateNews">
+        update news set title=#{title},context=#{context},cover_img=#{coverImg},update_time=now();
+    </update>
+<!--    获取新闻公告列表-->
+    <select id="getList" resultType="com.mio.afterschoolservice.pojo.News">
+        select * from news
+    </select>
+<!--    获取新闻公告详情-->
+    <select id="getNews" resultType="com.mio.afterschoolservice.pojo.News">
+        select * from news where id=#{id};
+    </select>
+
+</mapper>

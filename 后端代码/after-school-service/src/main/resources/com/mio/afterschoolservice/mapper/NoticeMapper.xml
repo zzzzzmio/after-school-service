@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mio.afterschoolservice.mapper.NoticeMapper">
+    <select id="findByTitle" resultType="com.mio.afterschoolservice.pojo.Notice">
+        select * from notice where title=#{title};
+    </select>
+    <insert id="addNotice">
+        insert into notice (title,content,create_time,update_time)
+            values(#{title},#{content},now(),now());
+    </insert>
+    <delete id="deleteNotice">
+        delete from notice where id=#{id};
+    </delete>
+    <select id="findByOther" resultType="com.mio.afterschoolservice.pojo.Notice">
+        select * from notice where id!=#{id} and title=#{title};
+    </select>
+    <update id="updateNotice">
+        update notice set title=#{title},content=#{content},create_time=now(),update_time=now() where id=#{id};
+    </update>
+    <select id="getNotice">
+        select * from notice where id=#{id};
+    </select>
+    <select id="getList">
+        select * from notice
+    </select>
+
+</mapper>

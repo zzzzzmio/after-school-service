@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mio.afterschoolservice.mapper.ApplyMapper">
+    <insert id="addApply">
+        insert into apply (from_user,from_name,from_avatar,to_user,to_name,to_avatar,create_time,update_time)
+            values(#{fromUser},#{fromName},#{fromAvatar},#{toUser},#{toName},#{toAvatar},now(),now());
+    </insert>
+    <select id="getDetail" resultType="com.mio.afterschoolservice.pojo.Apply">
+        select * from apply where id=#{id};
+    </select>
+    <delete id="agree">
+        delete from apply where id=#{id};
+    </delete>
+    <select id="getList" resultType="com.mio.afterschoolservice.pojo.Apply">
+        select * from apply where to_user=#{toUser};
+    </select>
+    <select id="find" resultType="com.mio.afterschoolservice.pojo.Apply">
+        select * from apply where from_user=#{fromUser} and to_user=#{toUser};
+    </select>
+
+</mapper>

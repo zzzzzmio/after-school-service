@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mio.afterschoolservice.mapper.ScheduleMapper">
+<!--    添加课程至课程表-->
+    <insert id="addSchedule">
+        insert into schedule (stu_id,c_id,c_name,c_time,t_name,create_time,update_time) values(#{stuId},#{cId},#{cName},#{cTime},#{tName},now(),now());
+    </insert>
+<!--    根据课程id查找课程表-->
+    <select id="find" resultType="com.mio.afterschoolservice.pojo.Schedule">
+        select * from schedule where c_id=#{cid} and stu_id=#{id};
+    </select>
+    <!--    从课程表中删除课程-->
+    <delete id="deleteSchedule">
+        delete from schedule where id=#{id};
+    </delete>
+<!--    获取课程表-->
+    <select id="getSchedule" resultType="com.mio.afterschoolservice.pojo.Schedule">
+        select * from schedule where stu_id=#{userId}
+    </select>
+<!--    获取精品课程-->
+    <select id="getRecommend" resultType="com.mio.afterschoolservice.pojo.Schedule">
+        select c_id,c_name,t_name from schedule group by c_id order by count(distinct stu_id) desc limit 6;
+    </select>
+
+</mapper>

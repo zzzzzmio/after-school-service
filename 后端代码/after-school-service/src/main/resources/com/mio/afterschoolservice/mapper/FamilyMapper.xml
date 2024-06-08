@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mio.afterschoolservice.mapper.FamilyMapper">
+    <select id="find" resultType="com.mio.afterschoolservice.pojo.Family">
+        select * from family where parent_id=#{parentId} and stu_id=#{stuId};
+    </select>
+    <insert id="apply">
+        insert into family (parent_id,parent_avatar,parent_name,stu_id,stu_avatar,stu_name,state)
+            values(#{parentId},#{parentAvatar},#{parentName},#{stuId},#{stuAvatar},#{stuName},#{state});
+    </insert>
+    <delete id="deleteFamily">
+        delete from family where id=#{id};
+    </delete>
+    <update id="agree">
+        update family set state=2 where id=#{id};
+    </update>
+    <select id="getApplyList" resultType="com.mio.afterschoolservice.pojo.Family">
+        select * from family where stu_id=#{id} and state=1;
+    </select>
+    <select id="getParentList" resultType="com.mio.afterschoolservice.pojo.Family">
+        select * from family where parent_id=#{id} and state=0;
+    </select>
+    <select id="getFamilyList" resultType="com.mio.afterschoolservice.pojo.Family">
+        select * from family where (parent_id=#{id} or stu_id=#{id}) and state=2;
+    </select>
+
+</mapper>

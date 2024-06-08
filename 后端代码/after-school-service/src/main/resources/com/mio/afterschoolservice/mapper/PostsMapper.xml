@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mio.afterschoolservice.mapper.PostsMapper">
+<!--    发帖-->
+    <insert id="addPosts">
+        insert into posts (title,context,user_id,username,create_time,update_time)
+            values(#{title},#{context},#{userId},#{username},now(),now());
+    </insert>
+<!--    删贴-->
+    <delete id="deletePosts">
+        delete from answer where p_id=#{id};
+        delete from posts where id=#{id};
+    </delete>
+<!--    修改帖子-->
+    <update id="updatePosts">
+        update posts set title=#{title},context=#{context},update_time=now() where id=#{id};
+    </update>
+<!--    点赞-->
+    <update id="thumbsUp">
+        update posts set good=good+1,update_time=now() where id=#{id};
+    </update>
+<!--    取消点赞-->
+    <update id="cancel">
+        update posts set good=good-1,update_time=now() where id=#{id};
+    </update>
+<!--    获取帖子详情-->
+    <select id="getPosts" resultType="com.mio.afterschoolservice.pojo.Posts">
+        select * from posts where id=#{id};
+    </select>
+<!--    获取帖子列表-->
+    <select id="getList" resultType="com.mio.afterschoolservice.pojo.Posts">
+        select * from posts
+        <where>
+            <if test="userId!=null">
+                user_id=#{userId}
+            </if>
+        </where>
+    </select>
+<!--    获取热门帖子-->
+    <select id="getHotList" resultType="com.mio.afterschoolservice.pojo.Posts">
+        select * from posts order by good desc limit 10;
+    </select>
+
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mio.afterschoolservice.mapper.CommentMapper">
+<!--    添加评论-->
+    <insert id="addComment">
+        insert into comment (user_id,username,c_id,context,create_time,update_time,avatar)
+            values(#{userId},#{username},#{cId},#{context},now(),now(),#{avatar});
+    </insert>
+<!--    删除评论-->
+    <delete id="deleteComment">
+        delete from comment where id=#{id};
+    </delete>
+<!--    点赞-->
+    <update id="thumbsUp">
+        update comment set good=good+1,update_time=now() where id=#{id};
+    </update>
+<!--    取消点赞-->
+    <update id="cancel">
+        update comment set good=good-1,update_time=now() where id=#{id};
+    </update>
+<!--    获取课程评论列表-->
+    <select id="getComment" resultType="com.mio.afterschoolservice.pojo.Comment">
+        select * from comment where c_id=#{cid}
+    </select>
+
+
+</mapper>
